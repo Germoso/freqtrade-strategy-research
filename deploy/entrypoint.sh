@@ -11,7 +11,7 @@ defaults = {
     'TELEGRAM_CHAT_ID': '',
     'API_USER': 'freqtrade',
     'API_PASSWORD': 'freqtrade',
-    'JWT_SECRET': 'change-me-jwt-secret',
+    'JWT_SECRET': 'this-is-a-very-long-jwt-secret-key-123456',
     'WS_TOKEN': 'change-me-ws-token',
 }
 for key, default in defaults.items():
