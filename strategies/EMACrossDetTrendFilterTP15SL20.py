@@ -64,5 +64,3 @@ class EMACrossDetTrendFilterTP15SL20(IStrategy):
     def custom_roi(self, pair, trade, current_time, trade_duration, entry_tag, side, **kwargs):
         target = trade.open_rate * (1.015 if not trade.is_short else 0.985)
         return trade.calc_profit_ratio(target)
-PY
-echo done
