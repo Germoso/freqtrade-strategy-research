@@ -1,0 +1,21 @@
+# Data (large, not committed)
+*.feather
+*.zip
+*.meta.json
+user_data/data/
+user_data/backtest_results/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+*.json.bak
+config/*secret*
+PY
+echo done
