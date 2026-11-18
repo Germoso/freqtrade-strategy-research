@@ -27,8 +27,8 @@ class EMACrossDetTrendFilterTP15SL20(IStrategy):
                    'stoploss_on_exchange': False}
 
     def bot_start(self, **kwargs):
-        if self.config.get('runmode') not in (RunMode.BACKTEST, RunMode.WEBSERVER):
-            raise OperationalException('EMACrossDetTrendFilterTP15SL20 is research only.')
+        if self.config.get('runmode') not in (RunMode.BACKTEST, RunMode.DRY_RUN, RunMode.WEBSERVER):
+            raise OperationalException('EMACrossDetTrendFilterTP15SL20 is research only (no live trading).')
 
     def leverage(self, pair, current_time, current_rate, proposed_leverage,
                  max_leverage, entry_tag, side, **kwargs):
