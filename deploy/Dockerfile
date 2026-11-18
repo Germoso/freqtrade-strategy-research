@@ -8,8 +8,7 @@ COPY deploy/config.json /freqtrade/user_data/config.json
 
 # Copiar entrypoint
 COPY deploy/entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
 
 EXPOSE 8080
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["sh", "/entrypoint.sh"]
