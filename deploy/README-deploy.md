@@ -38,7 +38,7 @@ sin ejecutar trades reales. Tú decides manualmente si entras.
 ## Alternativa nativa (sin Docker)
 Si prefieres nativo (según tu preferencia), usa un VPS con systemd:
 ```bash
-freqtrade trade --config user_data/config.json --strategy SolEMACrossDetTrendFilterTP15SL20
+freqtrade trade --config user_data/config.json --strategy EMACrossDetTrendFilterTP15SL20
 ```
 Y configura un servicio systemd para que arranque al boot.
 PY
