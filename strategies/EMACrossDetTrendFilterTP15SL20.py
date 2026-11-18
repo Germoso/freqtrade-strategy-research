@@ -1,9 +1,9 @@
-"""SolEMACrossDetTrendFilterTP15SL20
+"""EMACrossDetTrendFilterTP15SL20
 
 Deterministic EMA10/EMA20 crossover entries, filtered by EMA200 (trend alignment),
 with fixed TP 1.5% / SL 2.0% brackets. Research-only.
 
-Replicates the best-performing variant found in the SOL/LINK/XAU studies.
+Generic, asset-agnostic: applies to any pair (SOL, LINK, XAU, ...).
 """
 from freqtrade.strategy import IStrategy
 from freqtrade.enums import RunMode
@@ -12,7 +12,7 @@ import talib.abstract as ta
 from pandas import DataFrame
 
 
-class SolEMACrossDetTrendFilterTP15SL20(IStrategy):
+class EMACrossDetTrendFilterTP15SL20(IStrategy):
     INTERFACE_VERSION = 3
     timeframe = '5m'
     can_short = True
@@ -28,7 +28,7 @@ class SolEMACrossDetTrendFilterTP15SL20(IStrategy):
 
     def bot_start(self, **kwargs):
         if self.config.get('runmode') not in (RunMode.BACKTEST, RunMode.WEBSERVER):
-            raise OperationalException('SolEMACrossDetTrendFilterTP15SL20 is research only.')
+            raise OperationalException('EMACrossDetTrendFilterTP15SL20 is research only.')
 
     def leverage(self, pair, current_time, current_rate, proposed_leverage,
                  max_leverage, entry_tag, side, **kwargs):

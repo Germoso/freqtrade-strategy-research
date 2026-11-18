@@ -1,11 +1,11 @@
 # Freqtrade Strategy Research — EMA Cross + Trend Filter
 
 Repositorio de investigación de estrategias para Freqtrade (futures, 5m/1h), con la estrategia principal
-`SolEMACrossDetTrendFilterTP15SL20` y un filtro de capital basado en rachas (win/loss).
+`EMACrossDetTrendFilterTP15SL20` y un filtro de capital basado en rachas (win/loss).
 
 ## Estrategia principal
 
-`SolEMACrossDetTrendFilterTP15SL20` (ver `strategies/SolEMACrossDetTrendFilterTP15SL20.py`):
+`EMACrossDetTrendFilterTP15SL20` (ver `strategies/EMACrossDetTrendFilterTP15SL20.py`):
 
 - **Entradas**: cruce EMA10/EMA20, solo si van a favor de la EMA200.
   - Long: EMA10 cruza arriba de EMA20 **y** precio > EMA200.
@@ -59,7 +59,7 @@ Ver `docs/results.md` para la tabla completa. Resumen de profit total acumulado:
 ## Replicación
 
 1. Instalar Freqtrade nativamente (ver documentación oficial).
-2. Copiar `strategies/SolEMACrossDetTrendFilterTP15SL20.py` a `user_data/strategies/`.
+2. Copiar `strategies/EMACrossDetTrendFilterTP15SL20.py` a `user_data/strategies/`.
 3. Usar un config como `config/config-xau-okx-5m.json` (ajustar exchange/pares).
 4. Descargar datos:
    ```
@@ -68,7 +68,7 @@ Ver `docs/results.md` para la tabla completa. Resumen de profit total acumulado:
 5. Ejecutar backtest:
    ```
    freqtrade backtesting --config config-xau-okx-5m.json \
-     --strategy SolEMACrossDetTrendFilterTP15SL20 \
+     --strategy EMACrossDetTrendFilterTP15SL20 \
      --pairs "XAU/USDT:USDT" --timeframe 5m \
      --datadir user_data/data/okx --timerange 20250409-
    ```

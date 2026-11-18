@@ -4,7 +4,7 @@
 
 - Motor: Freqtrade (nativo, sin Docker), Python 3.12.
 - Configuración base: `config/config-xau-okx-5m.json` (adaptar exchange/pares).
-- Estrategia: `SolEMACrossDetTrendFilterTP15SL20`.
+- Estrategia: `EMACrossDetTrendFilterTP15SL20`.
 - Timeframe: 5m (probado también 1h).
 - Modo: futures, dry-run (sin credenciales).
 - Fee: 0.08% por lado (configurable).

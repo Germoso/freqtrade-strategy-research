@@ -4,7 +4,7 @@ set -euo pipefail
 cd "${1:-.}"
 freqtrade backtesting \
   --config config/config-xau-okx-5m.json \
-  --strategy SolEMACrossDetTrendFilterTP15SL20 \
+  --strategy EMACrossDetTrendFilterTP15SL20 \
   --pairs "XAU/USDT:USDT" \
   --timeframe 5m \
   --datadir user_data/data/okx \
