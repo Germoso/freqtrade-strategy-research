@@ -3,10 +3,15 @@ FROM freqtradeorg/freqtrade:stable
 # Copiar estrategia
 COPY strategies/ /freqtrade/user_data/strategies/
 
-# Copiar config (sin secretos; usar env vars en runtime)
+# Copiar config (con placeholders ${TELEGRAM_TOKEN})
 COPY deploy/config.json /freqtrade/user_data/config.json
 
-# Puerto de la API (opcional)
+# Copiar entrypoint
+COPY deploy/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 EXPOSE 8080
 
-CMD ["freqtrade", "trade", "--config", "user_data/config.json", "--strategy", "SolEMACrossDetTrendFilterTP15SL20"]
+ENTRYPOINT ["/entrypoint.sh"]
+PY
+echo done

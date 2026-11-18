@@ -1,0 +1,16 @@
+services:
+  freqtrade:
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile
+    container_name: freqtrade-alerts
+    restart: unless-stopped
+    environment:
+      - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./user_data/data:/freqtrade/user_data/data
+PY
+echo done
