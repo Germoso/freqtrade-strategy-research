@@ -15,6 +15,7 @@ sin ejecutar trades reales. Tú decides manualmente si entras.
    - `TELEGRAM_TOKEN`: token del bot de Telegram.
    - `TELEGRAM_CHAT_ID`: tu chat ID.
    - (Opcional) `EXCHANGE_API_KEY`, `EXCHANGE_SECRET` si quieres datos privados (no necesario para dry-run).
+   - (Opcional) `PORT`: puerto host a exponer (default 8080).
 
 3. **Config**
    - El `deploy/config.json` ya tiene `dry_run: true` y Telegram habilitado.
