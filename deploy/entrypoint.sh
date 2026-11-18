@@ -6,12 +6,20 @@ import os
 p='/tmp/config.json'
 with open(p) as f:
     raw=f.read()
-for key in ['TELEGRAM_TOKEN','TELEGRAM_CHAT_ID']:
-    val=os.environ.get(key,'')
-    raw=raw.replace('${'+key+'}', val)
+defaults = {
+    'TELEGRAM_TOKEN': '',
+    'TELEGRAM_CHAT_ID': '',
+    'API_USER': 'freqtrade',
+    'API_PASSWORD': 'freqtrade',
+    'JWT_SECRET': 'change-me-jwt-secret',
+    'WS_TOKEN': 'change-me-ws-token',
+}
+for key, default in defaults.items():
+    val = os.environ.get(key, default)
+    if not val:
+        val = default
+    raw = raw.replace('${' + key + '}', val)
 with open(p,'w') as f:
     f.write(raw)
 PYEOF
 exec freqtrade trade --config /tmp/config.json --strategy EMACrossDetTrendFilterTP15SL20
-EOF
-cat -n /home/germoso/code/freqtrade-strategy-research/deploy/entrypoint.sh

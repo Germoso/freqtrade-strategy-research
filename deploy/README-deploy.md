@@ -16,6 +16,7 @@ sin ejecutar trades reales. Tú decides manualmente si entras.
    - `TELEGRAM_CHAT_ID`: tu chat ID.
    - (Opcional) `EXCHANGE_API_KEY`, `EXCHANGE_SECRET` si quieres datos privados (no necesario para dry-run).
    - (Opcional) `PORT`: puerto host a exponer (default 8080).
+   - (Opcional) `API_USER`, `API_PASSWORD`, `JWT_SECRET`, `WS_TOKEN`: credenciales del dashboard/API web (defaults inseguros; cámbialos en producción).
 
 3. **Config**
    - El `deploy/config.json` ya tiene `dry_run: true` y Telegram habilitado.
