@@ -1,5 +1,5 @@
 {
-  "max_open_trades": 1,
+  "max_open_trades": 0,
   "stake_currency": "USDT",
   "stake_amount": 100,
   "tradable_balance_ratio": 0.99,
@@ -49,8 +49,9 @@
   "dry_run_wallet": 1000,
   "telegram": {
     "enabled": true,
-    "token": "${TELEGRAM_TOKEN}",
-    "chat_id": "${TELEGRAM_CHAT_ID}",
+    "allow_custom_messages": true,
+    "token": "",
+    "chat_id": "",
     "notification_settings": {
       "status": "on",
       "entry": "on",

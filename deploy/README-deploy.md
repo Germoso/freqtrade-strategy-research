@@ -1,47 +1,31 @@
-# Deploy en Dokploy (Freqtrade + alertas)
+# Monitor de alineación de EMAs en Dokploy
 
-## Objetivo
-Desplegar Freqtrade en modo dry-run para que genere señales y envíe alertas (Telegram),
-sin ejecutar trades reales. Tú decides manualmente si entras.
+Configura la aplicación para construir desde la raíz del repositorio con
+`deploy/Dockerfile`. La imagen arranca `EMAAlignmentAlerts` en modo de
+simulación con cero operaciones habilitadas.
 
-## Pasos
+Por defecto monitorea SOL/USDT perpetuo de Binance en velas de 5 minutos.
+Ajusta `exchange.pair_whitelist` y `timeframe` en `deploy/config.json` si
+quieres cambiar el mercado o la temporalidad.
 
-1. **Subir el repo a Dokploy**
-   - Crear una nueva Application en Dokploy.
-   - Conectar el repo de GitHub.
-   - Seleccionar el Dockerfile en `deploy/Dockerfile`.
+- Alcista — EMA 10 > EMA 20 > EMA 50 > EMA 200.
+- Bajista — EMA 10 < EMA 20 < EMA 50 < EMA 200.
 
-2. **Variables de entorno en Dokploy**
-   - `TELEGRAM_TOKEN`: token del bot de Telegram.
-   - `TELEGRAM_CHAT_ID`: tu chat ID.
-   - (Opcional) `EXCHANGE_API_KEY`, `EXCHANGE_SECRET` si quieres datos privados (no necesario para dry-run).
-   - (Opcional) `PORT`: puerto host a exponer (default 8080).
-   - (Opcional) `API_USER`, `API_PASSWORD`, `JWT_SECRET`, `WS_TOKEN`: credenciales del dashboard/API web (defaults inseguros; cámbialos en producción).
+El aviso sale al cierre de la primera vela alineada en cada dirección.
+Los avisos se registran en los logs de la aplicación.
 
-3. **Config**
-   - El `deploy/config.json` ya tiene `dry_run: true` y Telegram habilitado.
-   - Ajusta `pair_whitelist` al par que quieras monitorear (SOL, LINK, XAU, etc.).
-   - El token de Telegram se inyecta vía `${TELEGRAM_TOKEN}` (Dokploy lo resuelve).
+## Telegram
 
-4. **Deploy**
-   - Build & Deploy en Dokploy.
-   - Verifica logs: deberías ver "freqtrade" arrancando y "Telegram notification sent".
+Configura `TELEGRAM_TOKEN` y `TELEGRAM_CHAT_ID` en las variables de entorno
+de la aplicación para recibir los avisos. La configuración habilita los
+mensajes personalizados de Freqtrade.
 
-5. **Alertas**
-   - Cuando la estrategia detecte una entrada/salida, te llegará un mensaje a Telegram.
-   - Tú decides si pones el trade manualmente en tu exchange.
+Si expones el dashboard, configura también `API_USER`, `API_PASSWORD`,
+`JWT_SECRET` y `WS_TOKEN` en la aplicación.
 
-## Notas
-- **No commitear secretos**: las API keys van solo en Dokploy (env vars).
-- **Datos**: el contenedor descarga datos al arrancar; asegura que el exchange esté accesible.
-- **Uptime**: Dokploy reinicia el contenedor si cae.
-- **Dry-run**: `dry_run: true` evita ejecución real. Para live trading, cambia a `false` y añade API keys (no recomendado sin validación).
+## Redespliegue
 
-## Alternativa nativa (sin Docker)
-Si prefieres nativo (según tu preferencia), usa un VPS con systemd:
-```bash
-freqtrade trade --config user_data/config.json --strategy EMACrossDetTrendFilterTP15SL20
-```
-Y configura un servicio systemd para que arranque al boot.
-PY
-echo done
+Con el despliegue automático activo, un push a la rama conectada reconstruye
+la aplicación con la nueva estrategia. También puedes usar **Build & Deploy**
+en Dokploy. En los logs de inicio deben aparecer `EMAAlignmentAlerts` y
+`RUNNING`.

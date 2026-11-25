@@ -12,5 +12,3 @@ services:
       - "8080:8080"
     volumes:
       - ./user_data/data:/freqtrade/user_data/data
-PY
-echo done

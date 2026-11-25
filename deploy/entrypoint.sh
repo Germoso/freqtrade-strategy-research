@@ -1,25 +1,32 @@
-#!/usr/bin/env bash
+#!/bin/sh
 set -e
-cp /freqtrade/user_data/config.json /tmp/config.json
-python3 - <<'PYEOF'
+
+umask 077
+python3 - <<'PY'
+import json
 import os
-p='/tmp/config.json'
-with open(p) as f:
-    raw=f.read()
-defaults = {
-    'TELEGRAM_TOKEN': '',
-    'TELEGRAM_CHAT_ID': '',
-    'API_USER': 'freqtrade',
-    'API_PASSWORD': 'freqtrade',
-    'JWT_SECRET': 'this-is-a-very-long-jwt-secret-key-123456',
-    'WS_TOKEN': 'change-me-ws-token',
-}
-for key, default in defaults.items():
-    val = os.environ.get(key, default)
-    if not val:
-        val = default
-    raw = raw.replace('${' + key + '}', val)
-with open(p,'w') as f:
-    f.write(raw)
-PYEOF
-exec freqtrade trade --config /tmp/config.json --strategy EMACrossDetTrendFilterTP15SL20
+
+with open("/freqtrade/user_data/config.json") as source:
+    config = json.load(source)
+
+token = os.environ.get("TELEGRAM_TOKEN")
+chat_id = os.environ.get("TELEGRAM_CHAT_ID")
+if token and chat_id:
+    config["telegram"].update(token=token, chat_id=chat_id)
+else:
+    config.pop("telegram", None)
+    print("Telegram sin configurar. Las alertas se registrarán en los logs.", flush=True)
+
+for field, variable, default in (
+    ("username", "API_USER", "freqtrade"),
+    ("password", "API_PASSWORD", "freqtrade"),
+    ("jwt_secret_key", "JWT_SECRET", "this-is-a-very-long-jwt-secret-key-123456"),
+    ("ws_token", "WS_TOKEN", "change-me-ws-token"),
+):
+    config["api_server"][field] = os.environ.get(variable) or default
+
+with open("/tmp/config.json", "w") as destination:
+    json.dump(config, destination)
+PY
+
+exec freqtrade trade --config /tmp/config.json --strategy EMAAlignmentAlerts --db-url sqlite:///:memory:

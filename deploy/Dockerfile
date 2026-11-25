@@ -1,9 +1,9 @@
 FROM freqtradeorg/freqtrade:stable
 
 # Copiar estrategia
-COPY strategies/ /freqtrade/user_data/strategies/
+COPY strategies/EMAAlignmentAlerts.py /freqtrade/user_data/strategies/EMAAlignmentAlerts.py
 
-# Copiar config (con placeholders ${TELEGRAM_TOKEN})
+# Copiar config
 COPY deploy/config.json /freqtrade/user_data/config.json
 
 # Copiar entrypoint
