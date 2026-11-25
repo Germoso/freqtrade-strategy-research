@@ -4,9 +4,9 @@ Configura la aplicación para construir desde la raíz del repositorio con
 `deploy/Dockerfile`. La imagen arranca `EMAAlignmentAlerts` en modo de
 simulación con cero operaciones habilitadas.
 
-Por defecto monitorea SOL/USDT perpetuo de Binance en velas de 5 minutos.
-Ajusta `exchange.pair_whitelist` y `timeframe` en `deploy/config.json` si
-quieres cambiar el mercado o la temporalidad.
+Monitorea en velas de 5 minutos los 50 perpetuos USDT de Bybit con mayor
+volumen negociado en USDT durante las últimas 24 horas. Freqtrade actualiza
+la lista cada 30 minutos mediante `VolumePairList`.
 
 - Alcista — EMA 10 > EMA 20 > EMA 50 > EMA 200.
 - Bajista — EMA 10 < EMA 20 < EMA 50 < EMA 200.
