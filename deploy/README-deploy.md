@@ -23,6 +23,14 @@ mensajes personalizados de Freqtrade.
 Si expones el dashboard, configura también `API_USER`, `API_PASSWORD`,
 `JWT_SECRET` y `WS_TOKEN` en la aplicación.
 
+## Dominio en Dokploy
+
+Para un despliegue con `deploy/docker-compose.yml`, abre **Domains** y
+asigna tu host al servicio `freqtrade`, con **Path** `/` y **Container Port**
+`8080`. El proxy llega al contenedor por la red de Dokploy. Para un dominio
+propio, verifica que el registro DNS apunte al servidor. Guarda y vuelve a
+desplegar el Compose para aplicar la ruta.
+
 ## Redespliegue
 
 Con el despliegue automático activo, un push a la rama conectada reconstruye
